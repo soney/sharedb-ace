@@ -73,9 +73,13 @@ class SharedbAceBinding {
    */
   setInitialValue() {
     this.suppress = true;
-    // TODO: fix this
-    // This doesn't work for nested JSON sharedb documents > 1
-    this.session.setValue(this.doc.data[this.path[0]]);
+    
+    var data = this.doc.data;
+		for (var i = 0; i < this.path.length; i++) {
+			data = data[this.path[i]];
+		}
+		this.session.setValue(data);
+
     this.suppress = false;
   }
 
